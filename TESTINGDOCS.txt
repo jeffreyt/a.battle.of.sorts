@@ -1,0 +1,163 @@
+Jeffrey Tamashiro
+ICS311 - Extra Credit Project
+12.08.13
+
+---------Test Results------------
+
+Sorted:
+-------------------------------------------------------------------------------------------
+sorted-100.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 100 keys
+Insertion Sort:           451696 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+Heap Sort:                718966 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+Merge Sort:               506731 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+Quick Sort:               455502 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+
+sorted-1000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 1000 keys
+Insertion Sort:           574939 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+Heap Sort:               1038344 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+Merge Sort:               876460 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+Quick Sort:              1315568 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+
+sorted-10000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 10000 keys
+Insertion Sort:          1209889 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Heap Sort:               3859761 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Merge Sort:              2485352 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Quick Sort:              3412456 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+
+sorted-100000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 100000 keys
+Insertion Sort:          4360344 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Heap Sort:              39524124 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Merge Sort:             21773910 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Quick Sort:             27837114 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+
+sorted-1000000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 1000000 keys
+Insertion Sort:         26547015 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Heap Sort:             493442212 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Merge Sort:            250870971 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Quick Sort:            320792210 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+
+
+Unsorted:
+-----------------------------------------------------------------------------------------------
+unsorted-100.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 100 keys
+Insertion Sort:           607140 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+Heap Sort:                525466 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+Merge Sort:               429155 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+Quick Sort:               465162 ns | First Key: Abraham Keller      | Last Key: Winston Davis
+
+unsorted-1000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 1000 keys
+Insertion Sort:          3634352 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+Heap Sort:               1140803 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+Merge Sort:              1158952 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+Quick Sort:              1226868 ns | First Key: Abel Andrews        | Last Key: Yvette Neal
+
+unsorted-10000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 10000 keys
+Insertion Sort:        211571670 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Heap Sort:               5568476 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Merge Sort:              4208998 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Quick Sort:              4309407 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+
+unsorted-100000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 100000 keys
+Insertion Sort:      27420779183 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Heap Sort:              74335739 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Merge Sort:             46191834 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Quick Sort:             49853118 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+
+unsorted-1000000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 1000000 keys
+Insertion Sort:   14765495575107 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Heap Sort:            2022851187 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Merge Sort:           1143227123 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Quick Sort:           1045752434 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+
+
+Analysis:
+-------------------------------------------------------------------------------------------------------
+Overall the results were for the most part consistent with theoretical runtime limitations.  
+
+Insertion sort preformed "best" when dealing with already sorted data, its best case being O(n), and
+conversely was the worst dealing with unsorted data, O(n^2) especially as the data set grew, taking about 4 hours
+for the 1,000,000 sized list (Yes I ran the whole thing).  There was one anomaly where the tests that ran 
+after the long insertion sort process were considerably slower, although still only a few seconds.  For lack 
+of a better description, I think after 4 hours the machine was tired. (*see below)
+
+Heap Sort became noticeably slower than merge and quick as data got bigger, although still within a reasonable 
+order of magnitude to justify its O(n lgn) runtime.  This could be because its somewhat complicated comparisons
+and method calls in maxHeapify method.
+
+Merge Sort was very consistent, growing a little more than an order of magnitude along with the data set to be
+O(n lg n).  Although one strange thing was that the sorted data was consistently faster even though in theoretical
+Merge Sort it shouldn't matter.
+
+Quick Sort behaved as expected, for the most part in step with Merge Sort except a few times when it slowed down
+closer to Heap Sort.  Although it still gave around O(n lg n) performance.  Personally I came out of this loving
+Quick Sort because even though technically it wasn't as fast as Merge Sort, it was a joy to code (compared to Merge)
+and I think the random part could be tweeked, maybe customized for the situation which could give better performance.
+
+Re-Testing sans Insertion:
+-----------------------------------------------------------------------------------------------------------------
+*Just before submitting I re-ran just the higher order tests without Insertion Sort to see any noticeable difference.
+The results were only a little bit faster than the above ones running after Insertion, the 1 million-unsorted taking about
+1 second for Quick and Merge and 2 seconds for Heap.  So it seems to make sense.  Although it is still mysterious to me
+why sorted sets always seem to be faster than unsorted even when it's not supposed to matter.
+
+$ java TestSorts sorted-10000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 10000 keys
+Heap Sort:               3606541 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Merge Sort:              2176220 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Quick Sort:              3082832 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+
+$ java TestSorts sorted-100000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 100000 keys
+Heap Sort:              32581532 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Merge Sort:             19978835 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Quick Sort:             25808727 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+
+$ java TestSorts sorted-1000000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 1000000 keys
+Heap Sort:             411004050 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Merge Sort:            230460931 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Quick Sort:            288193992 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+
+$ java TestSorts unsorted-10000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 10000 keys
+Heap Sort:               5304426 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Merge Sort:              3592782 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+Quick Sort:              4002909 ns | First Key: Aaron Bowen         | Last Key: Zachary Waters
+
+$ java TestSorts unsorted-100000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 100000 keys
+Heap Sort:              67646952 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Merge Sort:             46744233 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+Quick Sort:             44460577 ns | First Key: Aaron Abbott        | Last Key: Zachary Yang
+
+$ java TestSorts unsorted-1000000.txt
+------------------------------------------------------------------------------------------------
+Sort Test: 1000000 keys
+Heap Sort:            1742925601 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Merge Sort:            957219743 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
+Quick Sort:            874269288 ns | First Key: Aaron Aaron         | Last Key: Zachary Zimmerman
